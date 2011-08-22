@@ -9,34 +9,21 @@ describe "Taskpaper File" do
       ["Test 2", "http://tadalistscrapertest.tadalist.com/lists/1862509", ["this is a test"]]
     ]
     
-    tp = TaskPaper::File.new(@lists)
-  end
-
-  it "turns a list matrix into a list hash" do
-    tp.lists_hash.should == {
-      :projects => {
-        {
-          "Test 1" => {
-            "List One" => {
-              
-            },
-            "List Two"
-          },
-          "Test 2"
-        }
-        "List One" => ["http://tadalistscrapertest.tadalist.com/lists/1845979", ["item one", "item two"]],
-        "List Two" => ["http://tadalistscrapertest.tadalist.com/lists/1845980", ["item three http://www.test.com", "item four"]]
-      }
-    }
+    @tp = TaskPaper::File.new(@lists)
   end
 
   it "turns a list matrix into a taskpaper file" do
-    tp.to_s.should == <<-MASTERLIST
+    @tp.to_s.should == <<-MASTERLIST
 Projects:
-	List One (http://tadalistscrapertest.tadalist.com/lists/1845979):
-		- item one
-	List Two (http://tadalistscrapertest.tadalist.com/lists/1845980):
-		- item three http://www.test.com
+	Test 1:
+		List One (http://tadalistscrapertest.tadalist.com/lists/1845979):
+			- item one
+			Extra (http://tadalistscrapertest.tadalist.com/lists/1862508):
+				- abc
+		List Two (http://tadalistscrapertest.tadalist.com/lists/1845980):
+			- item three http://www.test.com
+	Test 2 (http://tadalistscrapertest.tadalist.com/lists/1862509):
+		- this is a test
 MASTERLIST
   end
 end
